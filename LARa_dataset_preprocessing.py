@@ -20,7 +20,7 @@ from scipy.stats import norm, mode
 
 
 #folder path of the dataset
-FOLDER_PATH = "path_to_dataset_LARa_Mocap"
+FOLDER_PATH = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/"
 
 # Hardcoded number of sensor channels employed in the MoCap dataset
 NB_SENSOR_CHANNELS = 134
@@ -856,7 +856,7 @@ def create_dataset(half=False):
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/path_where_sequences_will_ve_stored/MoCap_dataset_half_freq/'
+        base_directory = '/data/nnair/chris/lara/all/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
@@ -898,6 +898,6 @@ if __name__ == '__main__':
     # MoCap_dataset/sequences_val
     # MoCap_dataset/sequences_test
 
-    create_dataset(half=False)
+    create_dataset(half=True)
 
     print("Done")
