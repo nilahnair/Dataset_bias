@@ -66,13 +66,13 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'mocap_quarter': 19, 'mbientlab_50_p': 19, 'mbientlab_10_p': 19, 'mbientlab_50_r': 19,
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
                       'motionminers_flw': 19}
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 213472,
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 268299,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
                      'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712}
 
     # Number of classes for either for activity recognition
-    num_classes = {'mocap': 7, 'mbientlab': 7, 'virtual': 7, 'mocap_half': 7, 'virtual_quarter': 7,
+    num_classes = {'mocap': 7, 'mbientlab': 7, 'virtual': 7, 'mocap_half': 8, 'virtual_quarter': 7,
                        'mocap_quarter': 7, 'mbientlab_50_p': 7, 'mbientlab_10_p': 7, 'mbientlab_50_r': 7,
                        'mbientlab_10_r': 7, 'mbientlab_quarter': 7, 'motionminers_real': 6, 'motionminers_flw': 7}
 
@@ -264,12 +264,13 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/path_where_results_will_be_stored_for_softmax/"
+        folder_base = "/data/nnair/chris/lara/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/path_where_results_will_be_stored_for_attributes/"
 
-
+    folder_exp = folder_base + "exp1/"
+    '''
     # Folder
     if usage_modus[usage_modus_idx] == 'train':
         folder_exp = folder_base + dataset[dataset_idx] + '/' + \
@@ -301,8 +302,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                       '/' + reshape_folder + '/' + 'final/'
     else:
         raise ("Error: Not selected fine tuning option")
-
+    '''
     # Paths are given according to the ones created in *preprocessing.py for the datasets
+    
+    '''
     dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
@@ -316,9 +319,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab_quarter': "path_to_datasets_folder/" + 'mbientlab/',
                     'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
+    '''
+    dataset_root = "/data/nnair/chris/lara/all/"
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
 
     # Labels position on the segmented window
@@ -357,7 +362,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'plotting': plotting,
                      'usage_modus': usage_modus[usage_modus_idx],
                      'folder_exp': folder_exp,
-                     'folder_exp_base_fine_tuning': folder_exp_base_fine_tuning,
+                     #'folder_exp_base_fine_tuning': folder_exp_base_fine_tuning,
                      'use_maxout': use_maxout[network[network_idx]],
                      'balancing': balancing[dataset[dataset_idx]],
                      'GPU': GPU,
@@ -425,19 +430,19 @@ def main():
     for more information about all of possible configurations for the experiments
 
     """
-    dataset_idx = [11]
-    network_idx = [0]
+    dataset_idx = [3]
+    network_idx = [2]
     reshape_input = [False]
-    output_idxs = [0, 1]
-    lrs = [0, 1, 2]
-    dataset_ft_idx = [0,1,2,3]
+    output_idxs = [0]
+    lrs = [0]
+    #dataset_ft_idx = [0,1,2,3]
     counter_exp = 0
     freeze = [0]
     percentages = [12]
     for dts in range(len(dataset_idx)):
         for nt in range(len(network_idx)):
             for opt in output_idxs:
-                for dft in dataset_ft_idx:
+                #for dft in dataset_ft_idx:
                     for pr in percentages:
                         for rsi in range(len(reshape_input)):
                             for fr in freeze:
@@ -445,8 +450,8 @@ def main():
                                     config = configuration(dataset_idx=dataset_idx[dts],
                                                            network_idx=network_idx[nt],
                                                            output_idx=opt,
-                                                           usage_modus_idx=5,
-                                                           dataset_fine_tuning_idx=dft,
+                                                           usage_modus_idx=0,
+                                                           #dataset_fine_tuning_idx=dft,
                                                            reshape_input=reshape_input[rsi],
                                                            learning_rates_idx=lr,
                                                            name_counter=counter_exp,
