@@ -320,7 +320,19 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
     '''
-    dataset_root = "/data/nnair/chris/lara/all/"
+    dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
+                    'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
+                    'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
+                    'mocap_half': "/data/nnair/chris/lara/all/",
+                    'virtual_quarter': "path_to_datasets_folder/" + 'Virtual_IMUs/',
+                    'mocap_quarter': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
+                    'mbientlab_50_p': "path_to_datasets_folder/" + 'mbientlab_50_persons/',
+                    'mbientlab_10_p': "path_to_datasets_folder/" + 'mbientlab_10_persons/',
+                    'mbientlab_50_r': "path_to_datasets_folder/" + 'mbientlab_50_recordings/',
+                    'mbientlab_10_r': "path_to_datasets_folder/" + 'mbientlab_10_recordings/',
+                    'mbientlab_quarter': "path_to_datasets_folder/" + 'mbientlab/',
+                    'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
+                    'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
 
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "1"
