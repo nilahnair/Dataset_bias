@@ -836,7 +836,7 @@ def general_statistics(ids):
     return
 
 
-def create_dataset(half=False):
+def create_dataset(half=True):
     '''
     create dataset
     - Segmentation
