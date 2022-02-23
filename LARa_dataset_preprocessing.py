@@ -616,6 +616,15 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
 
     counter_seq = 0
     hist_classes_all = np.zeros(NUM_CLASSES)
+    
+    if usage_modus == 'train':
+        recordings = ['R{:02d}'.format(r) for r in range(1, 26)]
+    elif usage_modus == 'val':
+        recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
+    elif usage_modus == 'test':
+        recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
+        
+    
 
     for P in persons:
         if P not in ids:
@@ -698,11 +707,18 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                     try:
                         #Getting labels and attributes
                         labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
-                        class_labels = np.where(labels[:, 0] == 7)[0]
-
-                        # Deleting rows containing the "none" class
-                        data = np.delete(data, class_labels, 0)
-                        labels = np.delete(labels, class_labels, 0)
+                        if usage_modus in ['train', 'val']:
+                            class_labels = np.where(labels[:, 0] == 7)[0]
+                        
+                            # Deleting rows containing the "none" class
+                            data = np.delete(data, class_labels, 0)
+                            labels = np.delete(labels, class_labels, 0)
+                        
+                        elif usage_modus == 'test':
+                            notwanted = np.where((labels[:,0]!=1) and (labels[:, 1] != 1) and (labels[:,17] != 1))[0]
+                            
+                            data = np.delete(data, notwanted, 0)
+                            labels = np.delete(labels, notwanted, 0)
 
                         # halving the frequency
                         if half:
@@ -845,18 +861,22 @@ def create_dataset(half=True):
     @param half: set for creating dataset with half the frequence.
     '''
 
+    '''
     train_ids = ["S01", "S02", "S03", "S04", "S07", "S08", "S09", "S10", "S15", "S16"]
     train_final_ids = ["S01", "S02", "S03", "S04", "S05", "S07", "S08", "S09", "S10" "S11", "S12", "S15", "S16"]
     val_ids = ["S05", "S11", "S12"]
     test_ids = ["S06", "S13", "S14"]
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
-
+    '''
+    train_ids = ["S03"]
+    val_ids = ["S03"]
+    test_ids = ["S04", "S06"]
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/chris/lara/all/'
+        base_directory = '/data/nnair/rabiye/exp1/input/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
