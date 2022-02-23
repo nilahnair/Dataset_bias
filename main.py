@@ -269,7 +269,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         labeltype = "attributes"
         folder_base = "/path_where_results_will_be_stored_for_attributes/"
 
-    folder_exp = folder_base + "exp1/"
+    #folder_exp = folder_base + "exp1/"
+    folder_exp = folder_base
     '''
     # Folder
     if usage_modus[usage_modus_idx] == 'train':
