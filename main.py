@@ -486,8 +486,7 @@ def my_config():
     usageModus = config["usage_modus"]
     lr = config["lr"]
     bsize = config["batch_size_train"]
-    dist = config["distance"]
-    
+   
 @ex.capture
 def run(config, dataset, network, output, usageModus):
    
