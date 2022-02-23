@@ -512,6 +512,8 @@ class Network_User(object):
                     # Calling the val() function with the current network and criterion
                     del train_batch_v, noise
                     results_val, loss_val = self.validate(network_obj, criterion)
+                    
+                    self.exp.log_scalar("loss_val_int_{}".format(ea_itera), loss_val, itera)
 
                     elapsed_time_val = time.time() - start_time_val
 
@@ -521,6 +523,10 @@ class Network_User(object):
                     f1w_val.append(results_val['f1_weighted'])
                     f1m_val.append(results_val['f1_mean'])
 
+                    self.exp.log_scalar("accuracy_val_int_{}".format(ea_itera),results_val['acc'], itera)
+                    self.exp.log_scalar("f1_w_val_int_{}".format(ea_itera),results_val['f1_weighted'], itera)
+                    self.exp.log_scalar("f1_m_val_int_{}".format(ea_itera), results_val['f1_mean'], itera)
+                    
                     # print statistics
                     logging.info('\n')
                     logging.info(
@@ -613,6 +619,14 @@ class Network_User(object):
                         'Allocated {} GB Cached {} GB'.format(round(torch.cuda.memory_allocated(0)/1024**3, 1),
                                                               round(torch.cuda.memory_cached(0)/1024**3, 1)))
                     logging.info('\n\n--------------------------')
+                    
+                    if self.config["sacred"]==True:
+                        self.exp.log_scalar("accuracy_train_int_{}".format(ea_itera),results_train['acc'], itera)
+                        self.exp.log_scalar("f1_w_train_int_{}".format(ea_itera),results_train['f1_weighted'], itera)
+                        self.exp.log_scalar("f1_m_train_int_{}".format(ea_itera), results_train['f1_mean'], itera)
+                        self.exp.log_scalar("loss_train_int_{}".format(ea_itera), loss_train, itera)
+                      
+                        
             #Step of the scheduler
             scheduler.step()
 

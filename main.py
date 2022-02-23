@@ -16,10 +16,21 @@ from modus_selecter import Modus_Selecter
 
 import datetime
 
+from sacred import Experiment
+from sacred.observers import MongoObserver
+
+ex= Experiment('Rabiye Exp1')
+
+ex.observers.append(MongoObserver.create(url='curtiz',
+                                         db_name='nnair_sacred',
+                                         username='nnair',
+                                         password='Germany2018',
+                                         authSource='admin',
+                                         authMechanism='SCRAM-SHA-1'))
 
 def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, dataset_fine_tuning_idx=0,
                   reshape_input=False, learning_rates_idx=0, name_counter=0, freeze=0, percentage_idx=0,
-                  fully_convolutional=False):
+                  fully_convolutional=False, sacred =True):
     """
     Set a configuration of all the possible variables that were set in the experiments.
     This includes the datasets, hyperparameters for training, networks, outputs, datasets paths,
@@ -401,7 +412,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                      'freeze_options': freeze_options[freeze],
                      'percentages_names': percentages_names[percentage_idx],
                      'fully_convolutional': fully_convolutional,
-                     'labeltype': labeltype}
+                     'labeltype': labeltype,
+                     'sacred':sacred}
 
     return configuration
 
@@ -434,7 +446,90 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 
     return
 
+@ex.config
+def my_config():
+    print("configuration function began")
+    dataset_idx = [3]
+    network_idx = [2]
+    reshape_input = [False]
+    #dataset_ft_idx = [0,1,2,3]
+    counter_exp = 0
+    freeze = [0]
+    percentages = [12]
+    output_idxs = [0]
+    lrs = [0]
+    for dts in range(len(dataset_idx)):
+        for nt in range(len(network_idx)):
+            for opt in output_idxs:
+                #for dft in dataset_ft_idx:
+                    for pr in percentages:
+                        for rsi in range(len(reshape_input)):
+                            for fr in freeze:
+                                for lr in lrs:
+                                    config = configuration(dataset_idx=dataset_idx[dts],
+                                                           network_idx=network_idx[nt],
+                                                           output_idx=opt,
+                                                           usage_modus_idx=0,
+                                                           #dataset_fine_tuning_idx=dft,
+                                                           reshape_input=reshape_input[rsi],
+                                                           learning_rates_idx=lr,
+                                                           name_counter=counter_exp,
+                                                           freeze=fr,
+                                                           percentage_idx=pr,
+                                                           fully_convolutional=False)
 
+    
+    dataset = config["dataset"]
+    network = config["network"]
+    output = config["output"]
+    reshape_input = config["reshape_input"]
+    usageModus = config["usage_modus"]
+    lr = config["lr"]
+    bsize = config["batch_size_train"]
+    dist = config["distance"]
+    
+@ex.capture
+def run(config, dataset, network, output, usageModus):
+   
+    file_name='/data/nnair/trial/'
+   
+    file_name='/data/nnair/output/avg/'+'logger.txt'
+    
+    setup_experiment_logger(logging_level=logging.DEBUG,filename=file_name)
+
+    logging.info('Finished')
+    logging.info('Dataset {} Network {} Output {} Modus {}'.format(dataset, network, output, usageModus))
+
+    modus = Modus_Selecter(config, ex)
+
+    # Starting process
+    modus.net_modus()
+    
+    print("Done")
+
+
+@ex.automain
+def main():
+    print("main began")
+    #Setting the same RNG seed
+    seed = 42
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    # Torch RNG
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    # Python RNG
+    np.random.seed(seed)
+    random.seed(seed)
+
+    print("Python  {}".format(platform.python_version()))
+
+
+    run()
+
+    print("Done")
+
+'''
 def main():
     """
     Run experiment for a certain set of parameters
@@ -487,6 +582,7 @@ def main():
     return
 
 
+
 if __name__ == '__main__':
 
     #Setting the same RNG seed
@@ -505,4 +601,5 @@ if __name__ == '__main__':
     main()
 
     print("Done")
+'''
 

@@ -147,7 +147,13 @@ class Modus_Selecter(object):
             logging.info('    Network_selecter:    Train: elapsed time {} acc {}, '
                          'f1_weighted {}, f1_mean {}'.format(time_train, results_train['acc'],
                                                              results_train['f1_weighted'], results_train['f1_mean']))
-
+            
+            self.exp.log_scalar("accuracy_train_mo_{}".format(iter_evl),results_train['acc'])
+            self.exp.log_scalar("f1_w_train_mo_{}".format(iter_evl),results_train['f1_weighted'])
+            self.exp.log_scalar("f1_m_train_mo_{}".format(iter_evl), results_train['f1_mean'])
+            self.exp.log_scalar("best_iter_{}".format(iter_evl), best_itera)
+            
+            
             # Saving the results
             self.save(acc_train_ac, f1_weighted_train_ac, f1_mean_train_ac, ea_iter=iter_evl, time_iter=time_train,
                       precisions=results_train['precision'], recalls=results_train['recall'], best_itera=best_itera)
@@ -168,6 +174,11 @@ class Modus_Selecter(object):
             self.save(acc_test_ac, f1_weighted_test_ac, f1_mean_test_ac, ea_iter=iter_evl, type_simple='testing',
                       confusion_matrix=confusion_matrix_test, time_iter=time_test, precisions=np.array(precisions_test),
                       recalls=np.array(recalls_test))
+            
+            self.exp.log_scalar("accuracy_test_mo_{}".format(iter_evl),results_test['acc'])
+            self.exp.log_scalar("f1_w_test_mo_{}".format(iter_evl),results_test['f1_weighted'])
+            self.exp.log_scalar("f1_m_test_mo_{}".format(iter_evl),results_test['f1_mean'])
+            
 
         if self.config["usage_modus"] == "train":
             logging.info('    Network_selecter:    Train:    eliminating network file')
@@ -222,7 +233,7 @@ class Modus_Selecter(object):
             self.train(itera=1, testing=True)
         elif self.config['usage_modus'] == 'test':
             self.test()
-        elif self.config['usage_modus'] == 'evolution':
+        elif self.configig['usage_modus'] == 'evolution':
             # Not implementing here, see paper ICPR2018
             self.evolution()
         elif self.config['usage_modus'] == 'train_final':
