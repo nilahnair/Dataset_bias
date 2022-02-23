@@ -264,7 +264,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/chris/lara/"
+        folder_base = "/data/nnair/rabiye/exp1/output/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/path_where_results_will_be_stored_for_attributes/"
@@ -323,7 +323,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
-                    'mocap_half': "/data/nnair/chris/lara/all/",
+                    'mocap_half': "/data/nnair/rabiye/exp1/input/",
                     'virtual_quarter': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_quarter': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
                     'mbientlab_50_p': "path_to_datasets_folder/" + 'mbientlab_50_persons/',
@@ -445,12 +445,12 @@ def main():
     dataset_idx = [3]
     network_idx = [2]
     reshape_input = [False]
-    output_idxs = [0]
-    lrs = [0]
     #dataset_ft_idx = [0,1,2,3]
     counter_exp = 0
     freeze = [0]
     percentages = [12]
+    output_idxs = [0]
+    lrs = [0]
     for dts in range(len(dataset_idx)):
         for nt in range(len(network_idx)):
             for opt in output_idxs:
