@@ -77,7 +77,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'mocap_quarter': 19, 'mbientlab_50_p': 19, 'mbientlab_10_p': 19, 'mbientlab_50_r': 19,
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
                       'motionminers_flw': 19}
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 268299,
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 24898,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
                      'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712}
@@ -90,7 +90,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.0001, 0.00001, 0.000001]
+    learning_rates = [0.001, 0.00001, 0.000001]
     lr = {'mocap': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -161,7 +161,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                           'cnn_imu': {'softmax': 32, 'attribute': 50}},
               'mocap_half': {'cnn': {'softmax': 32, 'attribute': 50},
                              'lstm': {'softmax': 10, 'attribute': 5},
-                             'cnn_imu': {'softmax': 50, 'attribute': 50}},
+                             'cnn_imu': {'softmax': 32, 'attribute': 50}},
               'virtual_quarter': {'cnn': {'softmax': 32, 'attribute': 50},
                                   'lstm': {'softmax': 10, 'attribute': 5},
                                   'cnn_imu': {'softmax': 32, 'attribute': 50}},
@@ -275,7 +275,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/rabiye/exp1/output/"
+        folder_base = "/data/nnair/rabiye/exp1/output1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/path_where_results_will_be_stored_for_attributes/"
