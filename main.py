@@ -161,7 +161,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                           'cnn_imu': {'softmax': 32, 'attribute': 50}},
               'mocap_half': {'cnn': {'softmax': 32, 'attribute': 50},
                              'lstm': {'softmax': 10, 'attribute': 5},
-                             'cnn_imu': {'softmax': 32, 'attribute': 50}},
+                             'cnn_imu': {'softmax': 50, 'attribute': 50}},
               'virtual_quarter': {'cnn': {'softmax': 32, 'attribute': 50},
                                   'lstm': {'softmax': 10, 'attribute': 5},
                                   'cnn_imu': {'softmax': 32, 'attribute': 50}},
