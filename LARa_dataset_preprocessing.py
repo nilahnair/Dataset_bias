@@ -618,9 +618,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     hist_classes_all = np.zeros(NUM_CLASSES)
     
     if usage_modus == 'train':
-        recordings = ['R{:02d}'.format(r) for r in range(1, 13)]
+        recordings = ['R{:02d}'.format(r) for r in range(1, 26)]
     elif usage_modus == 'val':
-        recordings = ['R15']
+        recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
     elif usage_modus == 'test':
         recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
         
@@ -872,14 +872,14 @@ def create_dataset(half=True):
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     '''
-    train_ids = ["S11"]
-    val_ids = ["S11"]
-    test_ids = ["S04"]
+    train_ids = ["S03"]
+    val_ids = ["S03"]
+    test_ids = ["S04", "S06"]
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/rabiye/exp2/input/'
+        base_directory = '/data/nnair/rabiye/exp1/input/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
