@@ -618,9 +618,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     hist_classes_all = np.zeros(NUM_CLASSES)
     
     if usage_modus == 'train':
-        recordings = ['R{:02d}'.format(r) for r in range(1, 26)]
+        recordings = ['R{:02d}'.format(r) for r in range(1, 13)]
     elif usage_modus == 'val':
-        recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
+        recordings = ['R15']
     elif usage_modus == 'test':
         recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
         
@@ -629,7 +629,9 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     for P in persons:
         if P not in ids:
             print("\nNo Person in expected IDS {}".format(P))
+        
         else:
+            '''
             if P == 'S11':
                 # Selecting the proportions of the train, val or testing according to the quentity of
                 # recordings per subject, as there are not equal number of recordings per subject
@@ -663,6 +665,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
                 else:
                     recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
+            '''
             for R in recordings:
                 # All of these if-cases are coming due to the naming of the recordings in the data.
                 # Not all the subjects have the same
@@ -869,14 +872,14 @@ def create_dataset(half=True):
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     '''
-    train_ids = ["S03"]
-    val_ids = ["S03"]
-    test_ids = ["S04", "S06"]
+    train_ids = ["S11"]
+    val_ids = ["S11"]
+    test_ids = ["S04"]
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/rabiye/exp1/input/'
+        base_directory = '/data/nnair/rabiye/exp2/input/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
