@@ -720,10 +720,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         
                         elif usage_modus == 'test':
                             print('check1')
-                            wanted= np.where((labels[:,0]==1) & (labels[:, 1] == 1) & (labels[:,17] == 1))[0]
-                            print('wanted')
-                            print(wanted)
-                            notwanted = np.where((labels[:,0]!=1) and (labels[:, 1] != 1) and (labels[:,17] != 1))[0]
+                            
+                            notwanted = np.where((labels[:,0]!=1) & (labels[:, 1] != 1) & (labels[:,17] != 1))[0]
                             print('attributes selected')
                             
                             data = np.delete(data, notwanted, 0)
