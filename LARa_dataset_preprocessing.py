@@ -711,6 +711,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         #Getting labels and attributes
                         labels = csv_reader.reader_labels(FOLDER_PATH + file_name_label)
                         if usage_modus in ['train', 'val']:
+                            print('Train and val null label deletion')
                             class_labels = np.where(labels[:, 0] == 7)[0]
                         
                             # Deleting rows containing the "none" class
@@ -719,9 +720,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         
                         elif usage_modus == 'test':
                             notwanted = np.where((labels[:,0]!=1) and (labels[:, 1] != 1) and (labels[:,17] != 1))[0]
+                            print('attributes selected')
                             
                             data = np.delete(data, notwanted, 0)
                             labels = np.delete(labels, notwanted, 0)
+                            print('required attribute maintained')
 
                         # halving the frequency
                         if half:
