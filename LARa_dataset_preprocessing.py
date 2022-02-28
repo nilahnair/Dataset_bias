@@ -719,6 +719,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             labels = np.delete(labels, class_labels, 0)
                         
                         elif usage_modus == 'test':
+                            print('check1')
                             notwanted = np.where((labels[:,0]!=1) and (labels[:, 1] != 1) and (labels[:,17] != 1))[0]
                             print('attributes selected')
                             
