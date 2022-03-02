@@ -618,11 +618,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     hist_classes_all = np.zeros(NUM_CLASSES)
     
     if usage_modus == 'train':
-        recordings = ['R{:02d}'.format(r) for r in range(3, 14)]
+        recordings = ['R{:02d}'.format(r) for r in range(17, 27)]
     elif usage_modus == 'val':
-        recordings = ['R{:02d}'.format(r) for r in range(14, 17)]
+        recordings = ['R{:02d}'.format(r) for r in range(27, 31)]
     elif usage_modus == 'test':
-        recordings = ['R{:02d}'.format(r) for r in range(3, 17)]
+        recordings = ['R{:02d}'.format(r) for r in range(17, 31)]
         
     
 
@@ -674,7 +674,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 if P in ["S01", "S02", "S03", "S04", "S05", "S06"]:
                     S = "L01"
                 else:
-                    S = "L02"
+                    S = "L03"
                 for N in repetition:
                     annotator_file = annotator[P]
                     if P == 'S07' and SCENARIO[R] == 'L01':
@@ -893,14 +893,14 @@ def create_dataset(half=True):
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     '''
-    train_ids = ["S07","S09", "S12", "S13"]
-    val_ids = ["S07","S09", "S12", "S13"]
-    test_ids = ["S15", "S16"]
+    train_ids = ["S10","S12", "S14"]
+    val_ids = ["S10","S12", "S14"]
+    test_ids = ["S16"]
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/rabiye/exp3/input1/'
+        base_directory = '/data/nnair/rabiye/exp3/input2/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
