@@ -618,11 +618,11 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     hist_classes_all = np.zeros(NUM_CLASSES)
     
     if usage_modus == 'train':
-        recordings = ['R{:02d}'.format(r) for r in range(1, 26)]
+        recordings = ['R{:02d}'.format(r) for r in range(3, 14)]
     elif usage_modus == 'val':
-        recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
+        recordings = ['R{:02d}'.format(r) for r in range(14, 17)]
     elif usage_modus == 'test':
-        recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
+        recordings = ['R{:02d}'.format(r) for r in range(3, 17)]
         
     
 
