@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('Rabiye Exp4a')
+ex= Experiment('Rabiye Exp4b')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -77,7 +77,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'mocap_quarter': 19, 'mbientlab_50_p': 19, 'mbientlab_10_p': 19, 'mbientlab_50_r': 19,
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
                       'motionminers_flw': 19}
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 35729,
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 19661,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
                      'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712}
@@ -275,7 +275,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/rabiye/exp4/output1/"
+        folder_base = "/data/nnair/rabiye/exp4/output2/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/path_where_results_will_be_stored_for_attributes/"
@@ -335,7 +335,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
-                    'mocap_half': "/data/nnair/rabiye/exp4/input1/",
+                    'mocap_half': "/data/nnair/rabiye/exp4/input2/",
                     'virtual_quarter': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_quarter': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
                     'mbientlab_50_p': "path_to_datasets_folder/" + 'mbientlab_50_persons/',
