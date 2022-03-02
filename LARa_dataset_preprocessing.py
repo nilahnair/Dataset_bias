@@ -727,11 +727,15 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             data = np.delete(data, class_labels, 0)
                             labels = np.delete(labels, class_labels, 0)
                             
-                            class_labels = np.where(labels[:, 9] == labels[:, 10] == 1)[0]
+                            print('check 2')
+                            
+                            class_labels = np.where(labels[:, 9] == labels[:, 10])[0]
                         
                             # Deleting rows containing the "none" class
                             data = np.delete(data, class_labels, 0)
                             labels = np.delete(labels, class_labels, 0)
+                            
+                            print('check 3')
                             
                             notwanted = np.where((labels[:, 0] != 0) & (labels[:,5] != 1) & ((labels[:,10] != 1) | (labels[:,9] != 1)))[0]
                             print('attributes selected')
