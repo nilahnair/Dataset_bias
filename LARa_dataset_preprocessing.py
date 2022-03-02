@@ -674,7 +674,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 if P in ["S01", "S02", "S03", "S04", "S05", "S06"]:
                     S = "L01"
                 else:
-                    S = SCENARIO[R]
+                    S = "L02"
                 for N in repetition:
                     annotator_file = annotator[P]
                     if P == 'S07' and SCENARIO[R] == 'L01':
@@ -721,7 +721,19 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                         elif usage_modus == 'test':
                             print('check1')
                             
-                            notwanted = np.where((labels[:,0]!=1) & (labels[:, 1] != 1) & (labels[:,17] != 1))[0]
+                            class_labels = np.where(labels[:, 0] == 7)[0]
+                        
+                            # Deleting rows containing the "none" class
+                            data = np.delete(data, class_labels, 0)
+                            labels = np.delete(labels, class_labels, 0)
+                            
+                            class_labels = np.where(labels[:, 9] == labels[:, 10] == 1)[0]
+                        
+                            # Deleting rows containing the "none" class
+                            data = np.delete(data, class_labels, 0)
+                            labels = np.delete(labels, class_labels, 0)
+                            
+                            notwanted = np.where((labels[:, 0] != 0) & (labels[:,5] != 1) & ((labels[:,10] != 1) | (labels[:,9] != 1)))[0]
                             print('attributes selected')
                             
                             data = np.delete(data, notwanted, 0)
@@ -877,14 +889,14 @@ def create_dataset(half=True):
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     '''
-    train_ids = ["S01"]
-    val_ids = ["S01"]
-    test_ids = ["S05"]
+    train_ids = ["S07","S09", "S12", "S13"]
+    val_ids = ["S07","S09", "S12", "S13"]
+    test_ids = ["S15", "S16"]
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/rabiye/exp2/input2/'
+        base_directory = '/data/nnair/rabiye/exp3/input1/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
