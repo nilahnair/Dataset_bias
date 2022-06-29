@@ -20,7 +20,7 @@ from scipy.stats import norm, mode
 
 
 #folder path of the dataset
-FOLDER_PATH = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/14_Annotated_Dataset_renamed/"
+FOLDER_PATH = "/vol/actrec/DFG_Project/2019/LARa_dataset/MoCap/recordings_2019/16_Annotated_Dataset/"
 
 # Hardcoded number of sensor channels employed in the MoCap dataset
 NB_SENSOR_CHANNELS = 134
@@ -29,7 +29,8 @@ NB_SENSOR_CHANNELS = 134
 
 NUM_CLASSES = 8
 NUM_ATTRIBUTES = 19
-
+'''
+previous values
 NORM_MAX_THRESHOLDS = [392.85,    345.05,    311.295,    460.544,   465.25,    474.5,     392.85,
                        345.05,    311.295,   574.258,   575.08,    589.5,     395.81,    503.798,
                        405.9174,  322.9,     331.81,    338.4,     551.829,   598.326,   490.63,
@@ -70,7 +71,52 @@ NORM_MIN_THRESHOLDS = [-382.62, -363.81, -315.691, -472.2, -471.4, -152.398,
                        -417.297, -495.1, -565.544, -906.02, -901.77, -731.921,
                        -417.297, -495.1, -565.544, -990.83, -991.36, -803.9,
                        -351.1281, -290.558, -269.311, -159.9403, -153.482, -162.718]
+'''
 
+NORM_MAX_THRESHOLDS = [ 398.916,   355.542,    311.295,    461.319,    459.044,    474.5,
+                       398.916,    355.542,    311.295,    574.258,    567.25,     589.3,
+                       393.446,    503.798,    438.49,     329.438,    330.982,    338.4,
+                       501.277,    598.326,    480.553,    660.388,    701.72,     772.18,
+                       387.987,    306.79,     320.292,    193.69,     203.65,     137.51,
+                       474.144,    299.478,    466.863,    828.46,     908.81,     -10.664,
+                       487.789,    414.432,    405.168,    478.4503,   478.6046,   484.78,
+                       421.528,    318.036,    388.655,    510.427,    567.22,     333.57,
+                       474.144,    299.478,    466.863,    768.4,      863.86,      75.128,
+                       538.074,    466.243,    491.836,    862.49,     884.944,    956.37,
+                       538.074,   466.243,    491.836,    932.035,    935.67,   1047.4,
+                       381.199,    450.664,    398.918,    329.438,    330.982,    338.4,
+                       528.83,     491.747,    482.745,    680.27,     652.6065,   730.2,
+                       524.859,    297.962,   343.0025,   198.86,     197.66,     133.81,
+                       481.01,     370.209,    408.69,     862.05,     573.91178,  181.21,
+                       526.335,    430.352,    400.781,    477.205,    463.969,    489.08,
+                       424.76,     331.942,    319.064,    512.28,     478.59,     423.67,
+                       481.01,     370.209,    408.69,     849.67,     667.19,     336.3,
+                       505.816,    488.421,    625.628,    868.33,     868.63,     948.98,
+                       505.816,    488.421,   625.628,    916.15,     948.31,    1033.99,
+                       373.183,    339.916,    272.984,    133.09,     151.84,      60.573 ]
+
+NORM_MIN_THRESHOLDS = [-380.281,   -377.873,   -315.691,   -463.31,    -459.003,   -193.228,
+                       -380.281,   -377.873,   -315.691,   -569.98,    -568.538,   -182.323,
+                       -403.5208,  -443.737,   -429.933,   -331.91,    -326.21,    -131.038,
+                       -374.9724,  -494.131,   -487.382,   -690.13,    -631.11,    -519.816,
+                       -422.752,   -341.895,   -360.278,   -200.59,    -196.846,   -203.74,
+                       -399.272,   -423.992,   -343.996,   -819.46,    -755.393,  -1061.872,
+                       -307.787,   -424.74,    -389.443,   -465.34,    -474.82,    -282.413,
+                       -445.881,   -348.157,   -378.173,   -526.74,    -494.74,    -630.096,
+                       -399.272,   -423.992,   -343.996,   -809.32,    -661.793,  -1158.638,
+                       -435.6,     -581.145,   -481.44,    -899.47,    -796.94,    -719.166,
+                       -435.6,     -581.145,   -481.44,    -984.77,    -896.04,    -766.684,
+                       -397.3337,  -449.713,   -372.793,   -331.91,    -326.21,    -131.038,
+                       -406.6129,  -473.111,   -480.169,   -669.58,    -641.484,   -582.066,
+                       -467.209,   -314.1051,  -332.8723,  -203.25,    -203.721,   -186.837,
+                       -396.021,   -463.64,    -406.697,   -779.69,    -824.456,  -1069.1101,
+                       -376.8946,  -396.88,    -428.423,   -465.386,   -481.38,    -306.064,
+                       -440.022,   -353.589,   -312.058,   -516.3,     -503.152,   -630.202,
+                       -396.021,   -463.64,    -406.697,   -774.03,    -798.599,  -1152.522,
+                       -440.3681,  -478.784,   -565.544,   -906.02,    -852.581,   -758.519,
+                       -440.3681,  -478.784,   -565.544,   -990.83,    -947.151,   -815.816,
+                       -351.1281,  -311.168,   -279.052,   -159.9403,  -153.482,   -162.545 ]
+        
 headers = ["sample", "label", "head_RX", "head_RY", "head_RZ", "head_TX", "head_TY", "head_TZ", "head_end_RX",
            "head_end_RY", "head_end_RZ", "head_end_TX", "head_end_TY", "head_end_TZ", "L_collar_RX", "L_collar_RY",
            "L_collar_RZ", "L_collar_TX", "L_collar_TY", "L_collar_TZ", "L_elbow_RX", "L_elbow_RY", "L_elbow_RZ",
@@ -603,7 +649,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     @param identity_bool: selecting for identity experiment
     @param usage_modus: selecting Train, Val or testing
     '''
-
+    '''
     if identity_bool:
         if usage_modus == 'train':
             recordings = ['R{:02d}'.format(r) for r in range(1, 21)]
@@ -613,16 +659,18 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
             recordings = ['R{:02d}'.format(r) for r in range(26, 31)]
     else:
         recordings = ['R{:02d}'.format(r) for r in range(1, 31)]
-
+    '''
     counter_seq = 0
     hist_classes_all = np.zeros(NUM_CLASSES)
     
     if usage_modus == 'train':
-        recordings = ['R{:02d}'.format(r) for r in range(17, 27)]
+        #recordings = ['R{:02d}'.format(r) for r in range(17, 27)]
+        recordings = ['R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', 'R10', 'R13', 'R17', 'R20', 'R21', 'R22', 'R23', 'R24', 'R25', 'R26', 'R27', 'R28', 'R29', 'R30']
     elif usage_modus == 'val':
-        recordings = ['R{:02d}'.format(r) for r in range(27, 31)]
+        #recordings = ['R{:02d}'.format(r) for r in range(27, 31)]
+        recordings = ['R11', 'R12', 'R18', 'R19']
     elif usage_modus == 'test':
-        recordings = ['R{:02d}'.format(r) for r in range(17, 31)]
+        recordings = ['R14', 'R15', 'R16']
         
     
 
@@ -729,12 +777,12 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                             
                             print('check 3')
                             
-                            notwanted = np.where((labels[:, 0] != 0) & (labels[:,5] != 1) & ((labels[:,10] != 1) | (labels[:,9] != 1)))[0]
-                            print('attributes selected')
+                            #notwanted = np.where((labels[:, 0] != 0) & (labels[:,5] != 1) & ((labels[:,10] != 1) | (labels[:,9] != 1)))[0]
+                            #print('attributes selected')
                             
-                            data = np.delete(data, notwanted, 0)
-                            labels = np.delete(labels, notwanted, 0)
-                            print('required attribute maintained')
+                            #data = np.delete(data, notwanted, 0)
+                            #labels = np.delete(labels, notwanted, 0)
+                            #print('required attribute maintained')
 
                         # halving the frequency
                         if half:
@@ -885,19 +933,19 @@ def create_dataset(half=True):
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     '''
-    train_ids = ["S12", "S14"]
-    val_ids = ["S12", "S14"]
-    test_ids = ["S15","S16"]
+    train_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
+    val_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
+    test_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/rabiye/exp4/input2/'
+        base_directory = '/data/nnair/lara/databias/prepros/testing/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
         "Path to the segmented sequences"
-        base_directory = '/path_where_sequences_will_ve_stored/MoCap_dataset/'
+        base_directory = '/data/nnair/lara/databias/prepros/testing/'
         sliding_window_length = 200
         sliding_window_step = 25
 

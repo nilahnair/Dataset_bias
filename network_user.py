@@ -17,7 +17,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-from hdfs.config import catch
+#from hdfs.config import catch
 
 import matplotlib.pyplot as plt
 from matplotlib import cm

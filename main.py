@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('Rabiye Exp4b')
+ex= Experiment('test')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -275,7 +275,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/rabiye/exp4/output2/"
+        folder_base = "/raid/nvidia/results/exp1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/path_where_results_will_be_stored_for_attributes/"
@@ -335,7 +335,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
-                    'mocap_half': "/data/nnair/rabiye/exp4/input2/",
+                    'mocap_half': "/raid/nvidia/preprocessed/trial2/",
                     'virtual_quarter': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_quarter': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
                     'mbientlab_50_p': "path_to_datasets_folder/" + 'mbientlab_50_persons/',
@@ -347,7 +347,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
 
     # Labels position on the segmented window
