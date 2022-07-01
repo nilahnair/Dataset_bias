@@ -278,7 +278,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/lara/databias/results/exptest/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        folder_base = "/data/nnair/lara/databias/results/exptest2"
+        folder_base = "/data/nnair/lara/databias/results/exptest2/"
 
     #folder_exp = folder_base + "exp1/"
     folder_exp = folder_base
