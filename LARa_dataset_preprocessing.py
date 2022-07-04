@@ -935,12 +935,12 @@ def create_dataset(half=True):
     '''
     train_ids = ["S01", "S05","S07", "S09", "S15"]
     val_ids = ["S01", "S05","S07", "S09", "S15"]
-    test_ids = ["S01", "S05","S07", "S09", "S15"]
+    test_ids = ["S02"]
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/lara/databias/prepros/gender/exp1/'
+        base_directory = '/data/nnair/lara/databias/prepros/gender/exp2/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
