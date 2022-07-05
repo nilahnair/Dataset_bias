@@ -146,6 +146,7 @@ SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02'
             'R22': 'L03', 'R23': 'L03', 'R24': 'L03', 'R25': 'L03', 'R26': 'L03', 'R27': 'L03', 'R28': 'L03',
             'R29': 'L03', 'R30': 'L03'}
 
+
 #scenario = ['S01']
 persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
            "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
@@ -670,7 +671,6 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
         #recordings = ['R{:02d}'.format(r) for r in range(27, 31)]
         recordings = ['R11', 'R12', 'R18', 'R19']
     elif usage_modus == 'test':
-        #recordings = ['R14', 'R15', 'R16']
         recordings = ['R14', 'R15', 'R16']
         
     
@@ -723,7 +723,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 if P in ["S01", "S02", "S03", "S04", "S05", "S06"]:
                     S = "L01"
                 else:
-                    S = "L03"
+                    S = SCENARIO[R]
                 for N in repetition:
                     annotator_file = annotator[P]
                     if P == 'S07' and SCENARIO[R] == 'L01':
