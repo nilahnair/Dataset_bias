@@ -670,6 +670,7 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
         #recordings = ['R{:02d}'.format(r) for r in range(27, 31)]
         recordings = ['R11', 'R12', 'R18', 'R19']
     elif usage_modus == 'test':
+        #recordings = ['R14', 'R15', 'R16']
         recordings = ['R14', 'R15', 'R16']
         
     
@@ -935,12 +936,12 @@ def create_dataset(half=True):
     '''
     train_ids = ["S01", "S05","S07", "S09", "S15"]
     val_ids = ["S01", "S05","S07", "S09", "S15"]
-    test_ids = ["S16"]
+    test_ids = ["S12"]
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/lara/databias/prepros/gender/exp7/'
+        base_directory = '/data/nnair/lara/databias/prepros/gender/exp5/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
