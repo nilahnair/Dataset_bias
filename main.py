@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('gender exp1 TV 1,5,7,9,15 T 6')
+ex= Experiment('gender exp1 TV 1,5,7,9,15 T 12')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -275,7 +275,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/lara/databias/results/gender/exp4/"
+        folder_base = "/data/nnair/lara/databias/results/gender/exp5/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/lara/databias/results/exptest2/"
@@ -335,7 +335,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
-                    'mocap_half': "/data/nnair/lara/databias/prepros/gender/exp4/",
+                    'mocap_half': "/data/nnair/lara/databias/prepros/gender/exp5/",
                     'virtual_quarter': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_quarter': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
                     'mbientlab_50_p': "path_to_datasets_folder/" + 'mbientlab_50_persons/',
@@ -347,7 +347,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
 
     # Labels position on the segmented window
