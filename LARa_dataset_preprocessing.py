@@ -146,6 +146,12 @@ SCENARIO = {'R01': 'L01', 'R02': 'L01', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02'
             'R22': 'L03', 'R23': 'L03', 'R24': 'L03', 'R25': 'L03', 'R26': 'L03', 'R27': 'L03', 'R28': 'L03',
             'R29': 'L03', 'R30': 'L03'}
 
+SCENARIO2 = {'R01': 'L02', 'R02': 'L02', 'R03': 'L02', 'R04': 'L02', 'R05': 'L02', 'R06': 'L02', 'R07': 'L02',
+            'R08': 'L02', 'R09': 'L02', 'R10': 'L02', 'R11': 'L02', 'R12': 'L02', 'R13': 'L02', 'R14': 'L02',
+            'R15': 'L02', 'R16': 'L02', 'R17': 'L03', 'R18': 'L03', 'R19': 'L03', 'R20': 'L03', 'R21': 'L03',
+            'R22': 'L03', 'R23': 'L03', 'R24': 'L03', 'R25': 'L03', 'R26': 'L03', 'R27': 'L03', 'R28': 'L03',
+            'R29': 'L03', 'R30': 'L03'}
+
 
 #scenario = ['S01']
 persons = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
@@ -377,6 +383,8 @@ def compute_min_num_samples(ids, boolean_classes=True, attr=0):
                 # these will include all of the recordings for the subjects
                 if P in ["S01", "S02", "S03", "S04", "S05", "S06"]:
                     S = "L01"
+                elif P in ["S15", "S16"]:
+                    S = SCENARIO2[r]
                 else:
                     S = SCENARIO[r]
                 for N in repetition:
@@ -722,6 +730,8 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
                 # these will include all of the recordings for the subjects
                 if P in ["S01", "S02", "S03", "S04", "S05", "S06"]:
                     S = "L01"
+                elif P in ["S15", "S16"]:
+                    S = SCENARIO2[R]
                 else:
                     S = SCENARIO[R]
                 for N in repetition:
@@ -934,14 +944,20 @@ def create_dataset(half=True):
 
     all_data = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     '''
+    
+    train_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
+    val_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
+    test_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
+    '''
     train_ids = ["S01", "S05","S07", "S09", "S15"]
     val_ids = ["S01", "S05","S07", "S09", "S15"]
     test_ids = ["S12"]
+    '''
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/lara/databias/prepros/gender/exp5/'
+        base_directory = '/data/nnair/lara/databias/prepros/testing/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
