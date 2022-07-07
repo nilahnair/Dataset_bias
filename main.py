@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('all')
+ex= Experiment('all attr')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -275,7 +275,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/lara/databias/results/exptest/"
+        folder_base = "/data/nnair/lara/databias/results/exptest2/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/lara/databias/results/exptest2/"
@@ -347,7 +347,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     GPU = 0
 
     # Labels position on the segmented window
@@ -456,7 +456,7 @@ def my_config():
     counter_exp = 0
     freeze = [0]
     percentages = [12]
-    output_idxs = [0]
+    output_idxs = [1]
     lrs = [0]
     for dts in range(len(dataset_idx)):
         for nt in range(len(network_idx)):
