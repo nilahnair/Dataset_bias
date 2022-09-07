@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias lara exp15 t2')
+ex= Experiment('datasetbias lara exp15')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -161,7 +161,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                           'cnn_imu': {'softmax': 32, 'attribute': 50}},
               'mocap_half': {'cnn': {'softmax': 32, 'attribute': 50},
                              'lstm': {'softmax': 10, 'attribute': 5},
-                             'cnn_imu': {'softmax': 50, 'attribute': 10}},
+                             'cnn_imu': {'softmax': 32, 'attribute': 10}},
               'virtual_quarter': {'cnn': {'softmax': 32, 'attribute': 50},
                                   'lstm': {'softmax': 10, 'attribute': 5},
                                   'cnn_imu': {'softmax': 32, 'attribute': 50}},
@@ -347,7 +347,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "6"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
 
     # Labels position on the segmented window
