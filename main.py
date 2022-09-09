@@ -335,7 +335,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
-                    'mocap_half': "/data/nnair/datasetbias/prepros/exp16/",
+                    'mocap_half': "/data/nnair/datasetbias/prepros/exp21/",
                     'virtual_quarter': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_quarter': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
                     'mbientlab_50_p': "path_to_datasets_folder/" + 'mbientlab_50_persons/',
