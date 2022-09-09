@@ -876,21 +876,21 @@ def create_dataset(half=True):
     test_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
     '''
     
-    train_ids = ["S03", "S05", "S09", "S12"]
-    val_ids = ["S03", "S05", "S09", "S12"]
+    train_ids = ["S06", "S07", "S10", "S11"]
+    val_ids = ["S06", "S07", "S10", "S11"]
 
-    test_ids = ["S01", "S02", "S04", "S06", "S07", "S08", "S10", "S11", "S13", "S14"]
+    test_ids = ["S01", "S02", "S03", "S04", "S05", "S08", "S09", "S12", "S13", "S14"]
     
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/datasetbias/prepros/exp22/'
+        base_directory = '/data/nnair/datasetbias/prepros/exp23/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/datasetbias/prepros/exp22/'
+        base_directory = '/data/nnair/datasetbias/prepros/exp23/'
         sliding_window_length = 200
         sliding_window_step = 25
 
