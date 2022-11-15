@@ -12,7 +12,7 @@ from sliding_window import sliding_window
 import pickle
 import sys
 
-location = "C:/Users/nilah/OneDrive/Desktop/Work/FLW/Christopher/Datasetbias/Datasets/motion-sense-master/motion-sense-master/data/A_DeviceMotion_data/A_DeviceMotion_data/"
+location = "/vol/actrec/motion-sense-master/data/A_DeviceMotion_data/A_DeviceMotion_data/"
 NB_SENSOR_CHANNELS = 9
 NUM_ACT_CLASSES= 6
 NUM_CLASSES = 24
@@ -438,7 +438,7 @@ if __name__ == '__main__':
     print("[INFO] -- Selected activites: "+str(act_labels))    
     trial_codes = [TRIAL_CODES[act] for act in act_labels]
     
-    base_directory = '/data/nnair/motionsense/attr/t0/'
+    base_directory = '/data/nnair/datasetbias/motionsense/prepros/exp1/'
     
     creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="raw", labeled=True, usage_modus='trainval')
     creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="raw", labeled=True, usage_modus='test')
