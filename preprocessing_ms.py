@@ -122,7 +122,7 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
 
 def get_ds_infos():
     ## 0:Code, 1:Weight, 2:Height, 3:Age, 4:Gender
-    dss = np.genfromtxt("C:/Users/nilah/OneDrive/Desktop/Work/FLW/Christopher/Datasetbias/Datasets/motion-sense-master/motion-sense-master/data/data_subjects_info.csv", delimiter=',')
+    dss = np.genfromtxt("/vol/actrec/motion-sense-master/data/data_subjects_info.csv", delimiter=',')
     dss = dss[1:]
     print("----> Data subjects information is imported.")
 
