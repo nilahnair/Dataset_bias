@@ -144,6 +144,12 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
         It returns a time-series of sensor data.
     
     """
+    base_directory = '/data/nnair/datasetbias/motionsense/prepros/exp1/'
+    
+    data_dir_train = base_directory + 'sequences_train/'
+    data_dir_val = base_directory + 'sequences_val/'
+    data_dir_test = base_directory + 'sequences_test/'
+    
     num_data_cols = len(dt_list) if mode == "mag" else len(dt_list*3)
 
     if labeled:
@@ -268,7 +274,7 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
         print("window extraction begining")
         
         print("training data save")
-        if usage_modus=='train':
+        if usage_modus=='trainval':
             print("target file name")
             print(data_dir_train)
             counter_seq = 0
