@@ -8,7 +8,7 @@ Created on Tue Aug 30 14:23:29 2022
 import numpy as np
 import pandas as pd
 import os
-from sliding_window import sliding_window
+from sliding_window_ms import sliding_window
 import pickle
 import sys
 
@@ -221,23 +221,36 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
                                 yl_test= np.concatenate([yl_test, vals[tv:frames,0]])
                             '''
                         if usage_modus=='trainval':
-                            for i in range(vals.shape[0]):
-                                X_train = np.vstack((X_train, vals[0:train_no,:]))
-                                act_train = np.append(act_train, [lbls[0:train_no,0]])
-                                id_train = np.append(id_train, [lbls[0:train_no,1]])
-                                print('done train')
-                            for i in range(vals.shape[0]):
-                                X_val = np.vstack((X_val, vals[train_no:tv,:]))
-                                act_val = np.append(act_val, [lbls[train_no:tv,0]])
-                                id_val = np.append(id_val, [lbls[train_no:tv,1]])
-                                print('done val')
+                           X_train = np.vstack((X_train, vals[0:train_no,:]))
+                           act_train = np.append(act_train, [lbls[0:train_no,0]])
+                           id_train = np.append(id_train, [lbls[0:train_no,1]])
+                           print('done train')
+                            
+                           X_val = np.vstack((X_val, vals[train_no:tv,:]))
+                           act_val = np.append(act_val, [lbls[train_no:tv,0]])
+                           id_val = np.append(id_val, [lbls[train_no:tv,1]])
+                           print('done val')
                         elif usage_modus=='test':
+                            X_test = np.vstack((X_test, vals[tv:frames,:]))
+                            act_test = np.append(act_test, [lbls[tv:frames,0]])
+                            id_test = np.append(id_test, [lbls[tv:frames,1]])
+                            print('done test')
                     
-                            for i in range(vals.shape[0]):
-                                X_test = np.vstack((X_test, vals[tv:frames,:]))
-                                act_test = np.append(act_test, [lbls[tv:frames,0]])
-                                id_test = np.append(id_test, [lbls[tv:frames,1]])
-                                print('done test')
+                    print('frames')
+                    print(frames)
+                    print('train_no')
+                    print(train_no)
+                    print('val_no')
+                    print(val_no)
+                    
+                    if usage_modus=='trainval':
+                        print('X_train')
+                        print(X_train.shape)
+                        print('X_val')
+                        print(X_val.shape)
+                    elif usage_modus=='test':
+                        print('X_test')
+                        print(X_test.shape)
                     #print('X_train')
                     #print(X_train.shape)
                     #dataset = np.append(dataset,vals, axis=0)
