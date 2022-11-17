@@ -52,8 +52,8 @@ class HARWindows(Dataset):
         f.close()
 
         X = data['data']
-        y = data['act_label']
-        Y = data['act_labels_all']
+        y = data['label']
+        Y = data['labels']
 
         window_data = {"data": X, "label": y, "labels": Y}
         '''
