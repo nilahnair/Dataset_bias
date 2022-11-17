@@ -703,7 +703,7 @@ class Network_User(object):
                         test_batch_l = harwindow_batched_val["labels"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
-                        test_batch_l = harwindow_batched_val["label"][:, 0]
+                        test_batch_l = harwindow_batched_val["label"]
                         test_batch_l = test_batch_l.reshape(-1)
                 elif self.config['output'] == 'attribute':
                     if self.config["fully_convolutional"] == "FCN":
@@ -831,7 +831,7 @@ class Network_User(object):
                         test_batch_l = harwindow_batched_test["labels"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
-                        test_batch_l = harwindow_batched_test["label"][:, 0]
+                        test_batch_l = harwindow_batched_test["label"]
                         test_batch_l = test_batch_l.reshape(-1)
                 elif self.config['output'] == 'attribute':
                     if self.config["fully_convolutional"] == "FCN":
