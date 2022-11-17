@@ -49,7 +49,7 @@ def norm_ms(data):
 
     return data_norm
 
-def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
+def opp_sliding_window(data_x, data_y, label_pos_end=True):
 #def opp_sliding_window(data_x, data_y, label_pos_end=True):
     '''
     print("check1")
@@ -63,11 +63,12 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
 
     data_x = sliding_window(data_x, (ws, data_x.shape[1]), (ss, 1))
     print(data_x.shape)
+    count_l = 0
+    idy=0
     # Label from the end
     if label_pos_end:
         print("check 1")
         data_y = np.asarray([[i[-1]] for i in sliding_window(data_y, ws, ss)])
-        data_z = np.asarray([[i[-1]] for i in sliding_window(data_z, ws, ss)])
     else:
         if False:
             # Label from the middle
@@ -75,38 +76,28 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
             print("check 2")
             data_y_labels = np.asarray(
                 [[i[i.shape[0] // 2]] for i in sliding_window(data_y, ws, ss)])
-            data_z_labels = np.asarray(
-                [[i[i.shape[0] // 2]] for i in sliding_window(data_z, ws, ss)])
         else:
             # Label according to mode
             try:
                 print("check 3")
                 data_y_labels = []
-                data_z_labels = []
                 for sw in sliding_window(data_y, ws, ss):
-        
                     count_l = np.bincount(sw.astype(int), minlength=NUM_ACT_CLASSES)
                     idy = np.argmax(count_l)
                     data_y_labels.append(idy)
                 data_y_labels = np.asarray(data_y_labels)
-                for sz in sliding_window(data_z, ws, ss):
-                    count_l = np.bincount(sz.astype(int), minlength=NUM_CLASSES)
-                    idy = np.argmax(count_l)
-                    data_z_labels.append(idy)
-                data_z_labels = np.asarray(data_z_labels)
-
+        
 
             except:
                 print("Sliding window: error with the counting {}".format(count_l))
-                print("Sliding window: error with the counting {}".format(idy))
+                #print("Sliding window: error with the counting {}".format(idy))
                 return np.Inf
 
             # All labels per window
             data_y_all = np.asarray([i[:] for i in sliding_window(data_y, ws, ss)])
             print(data_y_all.shape)
-            data_z_all = np.asarray([i[:] for i in sliding_window(data_z, ws, ss)])
-            print(data_z_all.shape)
-    '''        
+    
+    '''
     print("daya_y_labels")
     print(data_y_labels.shape)
     print("daya_y_all")
@@ -116,7 +107,7 @@ def opp_sliding_window(data_x, data_y, data_z, label_pos_end=True):
     print("daya_z_all")
     print(data_z_all.shape)
     '''
-    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8), data_z_labels.astype(np.uint8), data_z_all.astype(np.uint8)
+    return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
     #return data_x.astype(np.float32), data_y_labels.astype(np.uint8), data_y_all.astype(np.uint8)
 
 
@@ -262,10 +253,10 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
                     #dataset = np.append(dataset,vals, axis=0)
     try: 
         if usage_modus=='trainval':
-            data_train, act_train, act_all_train, labelid_train, labelid_all_train = opp_sliding_window(X_train, act_train, id_train, label_pos_end = False)
-            data_val, act_val, act_all_val, labelid_val, labelid_all_val = opp_sliding_window(X_val, act_val, id_val, label_pos_end = False)
+            data_train, act_train, act_all_train = opp_sliding_window(X_train, act_train, label_pos_end = False)
+            data_val, act_val, act_all_val = opp_sliding_window(X_val, act_val, label_pos_end = False)
         elif usage_modus=='test':
-            data_test, act_test, act_all_test, labelid_test, labelid_all_test = opp_sliding_window(X_test, act_test, id_test, label_pos_end = False)
+            data_test, act_test, act_all_test = opp_sliding_window(X_test, act_test, label_pos_end = False)
     except:
         print("error in sliding window")
     
@@ -292,8 +283,8 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
                     print("input values are")
                     print(seq.shape)
                     print(act_train[f])
-                    print(labelid_train[f])
-                    obj = {"data": seq, "label": act_train[f], "labels": act_all_train[f], "id": labelid_train[f]}
+                    
+                    obj = {"data": seq, "label": act_train[f], "labels": act_all_train[f]}
                     
                     f = open(os.path.join(data_dir_train, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                     pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -321,8 +312,7 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
                     print("input values are")
                     print(seq.shape)
                     print(act_val[f])
-                    print(labelid_val[f])
-                    obj = {"data": seq, "label": act_val[f], "labels": act_all_val[f], "id": labelid_val[f]}
+                    obj = {"data": seq, "label": act_val[f], "labels": act_all_val[f]}
                 
                     f = open(os.path.join(data_dir_val, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                     pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -350,8 +340,7 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
                     print("input values are")
                     print(seq.shape)
                     print(act_test[f])
-                    print(labelid_test[f])
-                    obj = {"data": seq, "label": act_test[f], "labels": act_all_test[f], "id": labelid_test[f]}
+                    obj = {"data": seq, "label": act_test[f], "labels": act_all_test[f]}
                 
                     f = open(os.path.join(data_dir_test, 'seq_{0:06}.pkl'.format(counter_seq)), 'wb')
                     pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
