@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias lara x5 exp17')
+ex= Experiment('datasetbias motionsense trial')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -55,7 +55,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     # Options
     dataset = {0: 'mocap', 1: 'mbientlab', 2: 'virtual', 3: 'mocap_half', 4: 'virtual_quarter', 5: 'mocap_quarter',
                6: 'mbientlab_50_p', 7: 'mbientlab_10_p', 8: 'mbientlab_50_r', 9: 'mbientlab_10_r',
-               10: 'mbientlab_quarter', 11: 'motionminers_real', 12: 'motionminers_flw'}
+               10: 'mbientlab_quarter', 11: 'motionminers_real', 12: 'motionminers_flw', 13: 'motionsense',}
     network = {0: 'cnn', 1: 'lstm', 2: 'cnn_imu'}
     output = {0: 'softmax', 1: 'attribute'}
     usage_modus = {0: 'train', 1: 'test', 2: 'evolution', 3: 'train_final', 4: 'train_random', 5: 'fine_tuning'}
@@ -64,15 +64,15 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     NB_sensor_channels = {'mocap': 126, 'mbientlab': 30, 'virtual': 126, 'mocap_half': 126, 'virtual_quarter': 126,
                           'mocap_quarter': 126, 'mbientlab_50_p': 30, 'mbientlab_10_p': 30, 'mbientlab_50_r': 30,
                           'mbientlab_10_r': 30, 'mbientlab_quarter': 30, 'motionminers_real': 27,
-                          'motionminers_flw': 27}
+                          'motionminers_flw': 27, 'motionsense': 9}
     sliding_window_length = {'mocap': 200, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 25,
                              'mocap_quarter': 25, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                              'mbientlab_10_r': 100, 'mbientlab_quarter': 25, 'motionminers_real': 100,
-                             'motionminers_flw': 100}
+                             'motionminers_flw': 100, 'motionsense': 100}
     sliding_window_step = {'mocap': 25, 'mbientlab': 12, 'virtual': 12, 'mocap_half': 12, 'virtual_quarter': 12,
                            'mocap_quarter': 12, 'mbientlab_50_p': 12, 'mbientlab_10_p': 12, 'mbientlab_50_r': 12,
                            'mbientlab_10_r': 12, 'mbientlab_quarter': 12, 'motionminers_real': 12,
-                           'motionminers_flw': 12}
+                           'motionminers_flw': 12, 'motionsense': 12}
     num_attributes = {'mocap': 19, 'mbientlab': 19, 'virtual': 19, 'mocap_half': 19, 'virtual_quarter': 19,
                       'mocap_quarter': 19, 'mbientlab_50_p': 19, 'mbientlab_10_p': 19, 'mbientlab_50_r': 19,
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
@@ -80,12 +80,12 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 91287,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
-                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712}
+                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':38914}
 
     # Number of classes for either for activity recognition
     num_classes = {'mocap': 7, 'mbientlab': 7, 'virtual': 7, 'mocap_half': 7, 'virtual_quarter': 7,
                        'mocap_quarter': 7, 'mbientlab_50_p': 7, 'mbientlab_10_p': 7, 'mbientlab_50_r': 7,
-                       'mbientlab_10_r': 7, 'mbientlab_quarter': 7, 'motionminers_real': 6, 'motionminers_flw': 7}
+                       'mbientlab_10_r': 7, 'mbientlab_quarter': 7, 'motionminers_real': 6, 'motionminers_flw': 7, 'motionsense': 6}
 
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
@@ -129,6 +129,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                 'cnn_imu': learning_rates[learning_rates_idx]},
           'motionminers_flw': {'cnn': learning_rates[learning_rates_idx],
                                 'lstm': learning_rates[learning_rates_idx],
+                                'cnn_imu': learning_rates[learning_rates_idx]},
+          'motionsense': {'cnn': learning_rates[learning_rates_idx],
+                                'lstm': learning_rates[learning_rates_idx],
                                 'cnn_imu': learning_rates[learning_rates_idx]}
           }
     lr_mult = 1.0
@@ -141,7 +144,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     balancing = {'mocap': False, 'mbientlab': False, 'virtual': False, 'mocap_half': False, 'virtual_quarter': False,
                  'mocap_quarter': False, 'mbientlab_50_p': False, 'mbientlab_10_p': False, 'mbientlab_50_r': False,
                  'mbientlab_10_r': False, 'mbientlab_quarter': False, 'motionminers_real': False,
-                 'motionminers_flw': False}
+                 'motionminers_flw': False, 'motionsense':False}
 
     # Epochs
     if usage_modus[usage_modus_idx] == 'train_final' or usage_modus[usage_modus_idx] == 'fine_tuning':
@@ -188,6 +191,9 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                     'cnn_imu': {'softmax': 10, 'attribute': 10}},
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
+                                   'cnn_imu': {'softmax': 10, 'attribute': 10}},
+              'motionsense': {'cnn': {'softmax': 10, 'attribute': 10},
+                                   'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}}
               }
 
@@ -195,42 +201,42 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     division_epochs = {'mocap': 2, 'mbientlab': 1, 'virtual': 1, 'mocap_half': 1, 'virtual_quarter': 1,
                        'mocap_quarter': 1, 'mbientlab_50_p': 1, 'mbientlab_10_p': 1, 'mbientlab_50_r': 1,
                        'mbientlab_10_r': 1, 'mbientlab_quarter': 1, 'motionminers_real': 1,
-                       'motionminers_flw': 1}
+                       'motionminers_flw': 1, 'motionsense':1}
 
     # Batch size
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                 'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
-                'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100},
+                'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense': 100},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                  'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
-                 'mbientlab_10_r': 100, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100},
+                 'mbientlab_10_r': 100, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100},
         'cnn_imu': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                     'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
-                    'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100}}
+                    'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                               'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                               'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 25,
-                              'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100},
+                              'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                                'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                                'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 100,
-                               'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100},
+                               'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100},
                       'cnn_imu': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                                   'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                                   'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 25,
-                                  'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100}}
+                                  'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100}}
 
     # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'virtual': 4, 'mocap_half': 4, 'virtual_quarter': 4,
                           'mocap_quarter': 4, 'mbientlab_50_p': 4, 'mbientlab_10_p': 4, 'mbientlab_50_r': 4,
-                          'mbientlab_10_r': 4, 'mbientlab_quarter': 4, 'motionminers_real': 4, 'motionminers_flw': 4}
+                          'mbientlab_10_r': 4, 'mbientlab_quarter': 4, 'motionminers_real': 4, 'motionminers_flw': 4, 'motionsense':4}
 
     # Filters
     filter_size = {'mocap': 5, 'mbientlab': 5, 'virtual': 5, 'mocap_half': 5, 'virtual_quarter': 5, 'mocap_quarter': 5,
                    'mbientlab_50_p': 5, 'mbientlab_10_p': 5, 'mbientlab_50_r': 5, 'mbientlab_10_r': 5,
-                   'mbientlab_quarter': 5, 'motionminers_real': 5, 'motionminers_flw': 5}
+                   'mbientlab_quarter': 5, 'motionminers_real': 5, 'motionminers_flw': 5, 'motionsense':5}
     num_filters = {'mocap': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'mbientlab': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'virtual': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
@@ -243,7 +249,8 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                    'mbientlab_10_r': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'mbientlab_quarter': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
                    'motionminers_real': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
-                   'motionminers_flw': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64}}
+                   'motionminers_flw': {'cnn': 64, 'lstm': 64, 'cnn_imu': 64},
+                   'motionsense':{'cnn': 64, 'lstm': 64, 'cnn_imu': 64}}
 
     freeze_options = [False, True]
 
@@ -275,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/datasetbias/results/exp17/"
+        folder_base = "/data/nnair/datasetbias/motionsense/results/exp1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/datasetbias/results/exp17/"
@@ -344,10 +351,11 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab_10_r': "path_to_datasets_folder/" + 'mbientlab_10_recordings/',
                     'mbientlab_quarter': "path_to_datasets_folder/" + 'mbientlab/',
                     'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
-                    'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
+                    'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/',
+                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/exp1/" }
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "2"
     GPU = 0
 
     # Labels position on the segmented window
@@ -449,8 +457,8 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    dataset_idx = [3]
-    network_idx = [2]
+    dataset_idx = [13]
+    network_idx = [0]
     reshape_input = [False]
     #dataset_ft_idx = [0,1,2,3]
     counter_exp = 0
