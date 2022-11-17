@@ -740,8 +740,7 @@ class Network_User(object):
                 if v == 0:
                     predictions_val = predictions
                     if self.config['output'] == 'softmax':
-                        test_labels = harwindow_batched_val["label"][:, 0]
-                        test_labels = test_labels.reshape(-1)
+                        test_labels = harwindow_batched_val["label"]
                     elif self.config['output'] == 'attribute':
                         test_labels = harwindow_batched_val["label"]
                 else:
