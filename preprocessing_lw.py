@@ -102,7 +102,7 @@ def getLabeledDict(empatica_dict, annot_dict, subject_ids, SR):
     return labeled_dict, taskInd_dict
     
 if __name__ == '__main__':
-    sepAccDict, sepAnnotDict = readData(accDir='D:/Activity-Recognition-main/Data/Acc Data/separate/', annotFile='D:/Activity-Recognition-main/Data/Annotation Data/separate.xlsx')
+    sepAccDict, sepAnnotDict = readData(accDir='/vol/actrec/Data_lineworker/Acc Data/', annotFile='/vol/actrec/Data_lineworker/Annotation Data/separate.xlsx')
     SR=int(sepAccDict[8][1,0])
     sepSubIDs = list(range(8,45))
     #print(len(sepSubIDs))
