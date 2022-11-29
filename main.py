@@ -192,7 +192,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
-              'motionsense': {'cnn': {'softmax': 15, 'attribute': 10},
+              'motionsense': {'cnn': {'softmax': 20, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}}
               }
@@ -213,7 +213,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                  'mbientlab_10_r': 100, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100},
         'cnn_imu': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                     'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
-                    'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100}}
+                    'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':50}}
 
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                               'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
@@ -226,7 +226,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'cnn_imu': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                                   'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                                   'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 25,
-                                  'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100}}
+                                  'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':50}}
 
     # Number of iterations for accumulating the gradients
     accumulation_steps = {'mocap': 4, 'mbientlab': 4, 'virtual': 4, 'mocap_half': 4, 'virtual_quarter': 4,
