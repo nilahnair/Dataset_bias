@@ -80,7 +80,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 91287,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
-                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':38914}
+                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':35668}
 
     # Number of classes for either for activity recognition
     num_classes = {'mocap': 7, 'mbientlab': 7, 'virtual': 7, 'mocap_half': 7, 'virtual_quarter': 7,
