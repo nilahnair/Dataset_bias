@@ -119,7 +119,7 @@ def get_ds_infos():
 
     return dss
 
-def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="mag", labeled=True, usage_modus='trainval'):
+def creat_time_series(dt_list, act_labels, trial_codes, base_directory, subjects, mode="mag", labeled=True, usage_modus='trainval'):
     """
     Args:
         dt_list: A list of columns that shows the type of data we want.
@@ -135,8 +135,8 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
         It returns a time-series of sensor data.
     
     """
-    base_directory = '/data/nnair/datasetbias/motionsense/prepros/exp1/'
-    
+    #base_directory = '/data/nnair/datasetbias/motionsense/prepros/exp1/'
+    sel_sub=subjects
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'
     data_dir_test = base_directory + 'sequences_test/'
@@ -153,7 +153,7 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
     #sel_sub=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
 
     if usage_modus=='trainval':
-        sel_sub=[1, 2, 3, 4]
+        #sel_sub=[1, 2, 3, 4]
         
         X_train = np.empty((0, NB_SENSOR_CHANNELS))
         act_train = np.empty((0))
@@ -164,7 +164,7 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
         id_val = np.empty((0))
     
     elif usage_modus=='test':
-        sel_sub=[5, 6, 7, 8]
+        #sel_sub=[5, 6, 7, 8]
         
         X_test = np.empty((0, NB_SENSOR_CHANNELS))
         act_test = np.empty((0))
@@ -232,7 +232,7 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
                             act_test = np.append(act_test, [lbls[tv:frames,0]])
                             id_test = np.append(id_test, [lbls[tv:frames,1]])
                             print('done test')
-                    
+                    '''
                     print('frames')
                     print(frames)
                     print('train_no')
@@ -251,6 +251,7 @@ def creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="ma
                     #print('X_train')
                     #print(X_train.shape)
                     #dataset = np.append(dataset,vals, axis=0)
+                    '''
     try: 
         if usage_modus=='trainval':
             data_train, act_train, act_all_train = opp_sliding_window(X_train, act_train, label_pos_end = False)
@@ -448,8 +449,11 @@ if __name__ == '__main__':
     
     base_directory = '/data/nnair/datasetbias/motionsense/prepros/exp1/'
     
-    creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="raw", labeled=True, usage_modus='trainval')
-    creat_time_series(dt_list, act_labels, trial_codes, base_directory, mode="raw", labeled=True, usage_modus='test')
+    sel_subjects_train=[4, 9, 12, 14]
+    sel_subjects_test=[1, 2, 3, 5, 6, 7, 8, 10, 11, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    
+    creat_time_series(dt_list, act_labels, trial_codes, base_directory=base_directory, subjects=sel_subjects_train, mode="raw", labeled=True, usage_modus='trainval')
+    creat_time_series(dt_list, act_labels, trial_codes, base_directory=base_directory, subjects=sel_subjects_test, mode="raw", labeled=True, usage_modus='test')
     
     data_dir_train = base_directory + 'sequences_train/'
     data_dir_val = base_directory + 'sequences_val/'

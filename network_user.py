@@ -868,14 +868,14 @@ class Network_User(object):
                 if v == 0:
                     predictions_test = predictions
                     if self.config['output'] == 'softmax':
-                        test_labels = harwindow_batched_test["label"][:, 0]
+                        test_labels = harwindow_batched_test["label"]
                         test_labels = test_labels.reshape(-1)
                     elif self.config['output'] == 'attribute':
                         test_labels = harwindow_batched_test["label"]
                 else:
                     predictions_test = torch.cat((predictions_test, predictions), dim=0)
                     if self.config['output'] == 'softmax':
-                        test_labels_batch = harwindow_batched_test["label"][:, 0]
+                        test_labels_batch = harwindow_batched_test["label"]
                         test_labels_batch = test_labels_batch.reshape(-1)
                     elif self.config['output'] == 'attribute':
                         test_labels_batch = harwindow_batched_test["label"]
