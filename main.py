@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias motionsense trial1')
+ex= Experiment('datasetbias motionsense trial2')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -90,7 +90,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.0001, 0.00001, 0.000001]
+    learning_rates = [0.001, 0.00001, 0.000001]
     lr = {'mocap': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -282,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/datasetbias/motionsense/results/trial1/"
+        folder_base = "/data/nnair/datasetbias/motionsense/results/trial2/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/datasetbias/results/exp17/"
@@ -355,7 +355,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionsense':"/data/nnair/datasetbias/motionsense/prepros/exp1/" }
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "2"
     GPU = 0
 
     # Labels position on the segmented window
