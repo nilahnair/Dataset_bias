@@ -71,7 +71,7 @@ def getLabeledDict(empatica_dict, annot_dict, subject_ids, SR):
            print(x)
            print(x-start_time)
            print('complete')
-           print(int(x-start_time)*SR)
+           print(int(x-start_time)*SR-14400)
         #print("task_ind")
         #print(task_ind)
         taskInd_dict[id] = task_ind
