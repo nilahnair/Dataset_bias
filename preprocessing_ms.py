@@ -18,7 +18,7 @@ NUM_ACT_CLASSES= 6
 NUM_CLASSES = 24
 
 ws = 200
-ss = 12
+ss = 25
 
 def norm_ms(data):
     """
@@ -447,7 +447,7 @@ if __name__ == '__main__':
     print("[INFO] -- Selected activites: "+str(act_labels))    
     trial_codes = [TRIAL_CODES[act] for act in act_labels]
     
-    base_directory = '/data/nnair/datasetbias/motionsense/prepros/t1/'
+    base_directory = '/data/nnair/datasetbias/motionsense/prepros/t2/'
     
     sel_subjects_train=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
     sel_subjects_test=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
