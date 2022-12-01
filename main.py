@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias motionsense w200s12')
+ex= Experiment('datasetbias motionsense w200s25')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -72,7 +72,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_step = {'mocap': 25, 'mbientlab': 12, 'virtual': 12, 'mocap_half': 12, 'virtual_quarter': 12,
                            'mocap_quarter': 12, 'mbientlab_50_p': 12, 'mbientlab_10_p': 12, 'mbientlab_50_r': 12,
                            'mbientlab_10_r': 12, 'mbientlab_quarter': 12, 'motionminers_real': 12,
-                           'motionminers_flw': 12, 'motionsense': 12}
+                           'motionminers_flw': 12, 'motionsense': 25}
     num_attributes = {'mocap': 19, 'mbientlab': 19, 'virtual': 19, 'mocap_half': 19, 'virtual_quarter': 19,
                       'mocap_quarter': 19, 'mbientlab_50_p': 19, 'mbientlab_10_p': 19, 'mbientlab_50_r': 19,
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
@@ -80,7 +80,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 91287,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
-                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':226041}
+                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':108499}
 
     # Number of classes for either for activity recognition
     num_classes = {'mocap': 7, 'mbientlab': 7, 'virtual': 7, 'mocap_half': 7, 'virtual_quarter': 7,
@@ -282,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/datasetbias/motionsense/results/trial1/"
+        folder_base = "/data/nnair/datasetbias/motionsense/results/trial2/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/datasetbias/results/exp17/"
@@ -352,10 +352,10 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab_quarter': "path_to_datasets_folder/" + 'mbientlab/',
                     'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/',
-                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/t1/" }
+                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/t2/" }
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
 
     # Labels position on the segmented window
