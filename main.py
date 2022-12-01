@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias motionsense trial2')
+ex= Experiment('datasetbias motionsense w200s12')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -68,7 +68,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     sliding_window_length = {'mocap': 200, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 25,
                              'mocap_quarter': 25, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                              'mbientlab_10_r': 100, 'mbientlab_quarter': 25, 'motionminers_real': 100,
-                             'motionminers_flw': 100, 'motionsense': 100}
+                             'motionminers_flw': 100, 'motionsense': 200}
     sliding_window_step = {'mocap': 25, 'mbientlab': 12, 'virtual': 12, 'mocap_half': 12, 'virtual_quarter': 12,
                            'mocap_quarter': 12, 'mbientlab_50_p': 12, 'mbientlab_10_p': 12, 'mbientlab_50_r': 12,
                            'mbientlab_10_r': 12, 'mbientlab_quarter': 12, 'motionminers_real': 12,
@@ -80,7 +80,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 91287,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
-                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':35668}
+                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':226041}
 
     # Number of classes for either for activity recognition
     num_classes = {'mocap': 7, 'mbientlab': 7, 'virtual': 7, 'mocap_half': 7, 'virtual_quarter': 7,
@@ -207,7 +207,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                 'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
-                'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense': 100},
+                'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense': 128},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                  'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                  'mbientlab_10_r': 100, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100},
@@ -218,7 +218,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                               'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                               'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 25,
-                              'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':65},
+                              'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':128},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                                'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                                'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 100,
@@ -282,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/datasetbias/motionsense/results/trial2/"
+        folder_base = "/data/nnair/datasetbias/motionsense/results/trial1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/datasetbias/results/exp17/"
@@ -352,7 +352,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab_quarter': "path_to_datasets_folder/" + 'mbientlab/',
                     'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/',
-                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/exp1/" }
+                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/t1/" }
 
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "2"
