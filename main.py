@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias motionsense w200s25')
+ex= Experiment('datasetbias motionsense w200s25 64 bsize')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -207,7 +207,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_train = {
         'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                 'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
-                'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense': 128},
+                'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense': 64},
         'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                  'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                  'mbientlab_10_r': 100, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100},
@@ -218,7 +218,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     batch_size_val = {'cnn': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                               'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                               'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 25,
-                              'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':128},
+                              'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':64},
                       'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                                'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                                'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 100,
