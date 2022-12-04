@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias motionsense w200s25 64 bsize')
+ex= Experiment('datasetbias motionsense w200s25 64 bsize 15e')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -192,7 +192,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
-              'motionsense': {'cnn': {'softmax': 30, 'attribute': 10},
+              'motionsense': {'cnn': {'softmax': 15, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}}
               }
