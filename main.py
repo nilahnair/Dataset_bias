@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias motionsense w200s25 64 bsize 20e')
+ex= Experiment('datasetbias motionsense exp1 30e')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -80,7 +80,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 91287,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
-                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':108499}
+                     'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':17116}
 
     # Number of classes for either for activity recognition
     num_classes = {'mocap': 7, 'mbientlab': 7, 'virtual': 7, 'mocap_half': 7, 'virtual_quarter': 7,
@@ -192,7 +192,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
               'motionminers_flw': {'cnn': {'softmax': 10, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}},
-              'motionsense': {'cnn': {'softmax': 20, 'attribute': 10},
+              'motionsense': {'cnn': {'softmax': 30, 'attribute': 10},
                                    'lstm': {'softmax': 10, 'attribute': 10},
                                    'cnn_imu': {'softmax': 10, 'attribute': 10}}
               }
@@ -282,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/datasetbias/motionsense/results/trial2/"
+        folder_base = "/data/nnair/datasetbias/motionsense/results/exp1/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/datasetbias/results/exp17/"
@@ -352,7 +352,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab_quarter': "path_to_datasets_folder/" + 'mbientlab/',
                     'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/',
-                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/t2/" }
+                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/exp1/" }
 
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
