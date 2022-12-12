@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias motionsense exp26 20 x5')
+ex= Experiment('datasetbias motionsense exp27 20 x5')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -282,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/datasetbias/motionsense/results/exp26/"
+        folder_base = "/data/nnair/datasetbias/motionsense/results/exp27/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/datasetbias/results/exp17/"
@@ -352,7 +352,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'mbientlab_quarter': "path_to_datasets_folder/" + 'mbientlab/',
                     'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/',
-                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/exp26/" }
+                    'motionsense':"/data/nnair/datasetbias/motionsense/prepros/exp27/" }
 
     # GPU
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
