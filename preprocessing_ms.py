@@ -447,10 +447,10 @@ if __name__ == '__main__':
     print("[INFO] -- Selected activites: "+str(act_labels))    
     trial_codes = [TRIAL_CODES[act] for act in act_labels]
     
-    base_directory = '/data/nnair/datasetbias/motionsense/prepros/exp15/'
+    base_directory = '/data/nnair/datasetbias/motionsense/prepros/exp16/'
     
-    sel_subjects_train=[10,16,17,19]
-    sel_subjects_test=[1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 18, 20, 21, 22, 23, 24]
+    sel_subjects_train=[6,10,14,15]
+    sel_subjects_test=[1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 24]
     
     creat_time_series(dt_list, act_labels, trial_codes, base_directory=base_directory, subjects=sel_subjects_train, mode="raw", labeled=True, usage_modus='trainval')
     creat_time_series(dt_list, act_labels, trial_codes, base_directory=base_directory, subjects=sel_subjects_test, mode="raw", labeled=True, usage_modus='test')
