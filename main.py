@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias ')
+ex= Experiment('datasetbias lara all')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -77,7 +77,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'mocap_quarter': 19, 'mbientlab_50_p': 19, 'mbientlab_10_p': 19, 'mbientlab_50_r': 19,
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
                       'motionminers_flw': 19, 'motionsense': 0}
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 91287,
+    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 254799,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
                      'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':16967}
@@ -90,7 +90,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     # It was thought to have different LR per dataset, but experimentally have worked the next three
     # Learning rate
-    learning_rates = [0.001, 0.00001, 0.000001]
+    learning_rates = [0.0001, 0.00001, 0.000001]
     lr = {'mocap': {'cnn': learning_rates[learning_rates_idx],
                     'lstm': learning_rates[learning_rates_idx],
                     'cnn_imu': learning_rates[learning_rates_idx]},
@@ -282,7 +282,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
 
     if output[output_idx] == 'softmax':
         labeltype = "class"
-        folder_base = "/data/nnair/datasetbias/motionsense/results/exp26/"
+        folder_base = "/data/nnair/datasetbias/results/all/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
         folder_base = "/data/nnair/datasetbias/results/exp17/"
@@ -342,7 +342,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
     dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
-                    'mocap_half': "/data/nnair/datasetbias/prepros/exp17/",
+                    'mocap_half': "/data/nnair/datasetbias/prepros/all/",
                     'virtual_quarter': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_quarter': "path_to_datasets_folder/" + 'MoCap_dataset_half_freq/',
                     'mbientlab_50_p': "path_to_datasets_folder/" + 'mbientlab_50_persons/',
@@ -355,7 +355,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionsense':"/data/nnair/datasetbias/motionsense/prepros/exp26/" }
 
     # GPU
-    os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     GPU = 0
 
     # Labels position on the segmented window
@@ -457,8 +457,8 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    dataset_idx = [13]
-    network_idx = [0]
+    dataset_idx = [3]
+    network_idx = [2]
     reshape_input = [False]
     #dataset_ft_idx = [0,1,2,3]
     counter_exp = 0
