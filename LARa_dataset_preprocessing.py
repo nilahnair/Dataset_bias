@@ -625,14 +625,13 @@ def generate_data(ids, sliding_window_length, sliding_window_step, data_dir=None
     
     if usage_modus == 'train':
         #recordings = ['R{:02d}'.format(r) for r in range(17, 27)]
-        recordings = ['R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', 'R10', 'R14', 'R15', 'R17', 'R20', 'R21', 'R22', 'R23', 
+        recordings = ['R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', 'R10',  'R20', 'R21', 'R22', 'R23', 
                       'R24', 'R25', 'R26', 'R27', 'R28', 'R29', 'R30']
     elif usage_modus == 'val':
         #recordings = ['R{:02d}'.format(r) for r in range(27, 31)]
         recordings = ['R11', 'R12', 'R13', 'R16', 'R18', 'R19']
     elif usage_modus == 'test':
-        recordings = ['R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', 'R10', 'R11', 'R12', 'R13', 'R14', 'R15', 'R16', 'R17', 
-                      'R18', 'R19', 'R20', 'R21', 'R22', 'R23', 'R24', 'R25', 'R26', 'R27', 'R28', 'R29', 'R30']
+        recordings = ['R14', 'R15', 'R17']
         
     
 
@@ -876,21 +875,21 @@ def create_dataset(half=True):
     test_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16"]
     '''
 
-    train_ids = ["S02", "S03", "S07", "S11"]
-    val_ids = ["S02", "S03", "S07", "S11"]
+    train_ids = ["S01", "S02", "S03", "S04", "S05", "S06",  "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
+    val_ids = ["S01", "S02", "S03","S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
 
-    test_ids = ["S01", "S04", "S05", "S06", "S08", "S09", "S10", "S12", "S13", "S14"]
+    test_ids = ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14"]
     
     #general_statistics(train_ids)
 
     if half:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/datasetbias/prepros/exp27/'
+        base_directory = '/data/nnair/datasetbias/prepros/all/'
         sliding_window_length = 100
         sliding_window_step = 12
     else:
         "Path to the segmented sequences"
-        base_directory = '/data/nnair/datasetbias/prepros/exp27/'
+        base_directory = '/data/nnair/datasetbias/prepros/all/'
         sliding_window_length = 200
         sliding_window_step = 25
 
