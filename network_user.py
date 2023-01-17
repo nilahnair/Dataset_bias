@@ -703,14 +703,14 @@ class Network_User(object):
                         test_batch_l = harwindow_batched_val["labels"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
-                        test_batch_l = harwindow_batched_val["label"]
+                        test_batch_l = harwindow_batched_val["label"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                 elif self.config['output'] == 'attribute':
                     if self.config["fully_convolutional"] == "FCN":
                         test_batch_l = harwindow_batched_val["labels"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
-                        test_batch_l = harwindow_batched_val["label"]
+                        test_batch_l = harwindow_batched_val["label"][:, 0]
 
                 # Creating torch tensors
                 # test_batch_v = torch.from_numpy(test_batch_v)
@@ -740,13 +740,13 @@ class Network_User(object):
                 if v == 0:
                     predictions_val = predictions
                     if self.config['output'] == 'softmax':
-                        test_labels = harwindow_batched_val["label"]
+                        test_labels = harwindow_batched_val["label"][:, 0]
                     elif self.config['output'] == 'attribute':
                         test_labels = harwindow_batched_val["label"]
                 else:
                     predictions_val = torch.cat((predictions_val, predictions), dim=0)
                     if self.config['output'] == 'softmax':
-                        test_labels_batch = harwindow_batched_val["label"]
+                        test_labels_batch = harwindow_batched_val["label"][:, 0]
                         test_labels_batch = test_labels_batch.reshape(-1)
                     elif self.config['output'] == 'attribute':
                         test_labels_batch = harwindow_batched_val["label"]
@@ -830,7 +830,7 @@ class Network_User(object):
                         test_batch_l = harwindow_batched_test["labels"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
-                        test_batch_l = harwindow_batched_test["label"]
+                        test_batch_l = harwindow_batched_test["label"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                 elif self.config['output'] == 'attribute':
                     if self.config["fully_convolutional"] == "FCN":
@@ -868,14 +868,14 @@ class Network_User(object):
                 if v == 0:
                     predictions_test = predictions
                     if self.config['output'] == 'softmax':
-                        test_labels = harwindow_batched_test["label"]
+                        test_labels = harwindow_batched_test["label"][:, 0]
                         test_labels = test_labels.reshape(-1)
                     elif self.config['output'] == 'attribute':
                         test_labels = harwindow_batched_test["label"]
                 else:
                     predictions_test = torch.cat((predictions_test, predictions), dim=0)
                     if self.config['output'] == 'softmax':
-                        test_labels_batch = harwindow_batched_test["label"]
+                        test_labels_batch = harwindow_batched_test["label"][:, 0]
                         test_labels_batch = test_labels_batch.reshape(-1)
                     elif self.config['output'] == 'attribute':
                         test_labels_batch = harwindow_batched_test["label"]
