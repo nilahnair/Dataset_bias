@@ -650,7 +650,9 @@ class Network_User(object):
         np.savetxt(self.config['folder_exp'] + 'plots/f1m_val.txt', f1m_val, delimiter=",", fmt='%s')
         np.savetxt(self.config['folder_exp'] + 'plots/f1w_val.txt', f1w_val, delimiter=",", fmt='%s')
         np.savetxt(self.config['folder_exp'] + 'plots/loss_val.txt', losses_val, delimiter=",", fmt='%s')
-
+        
+        torch.save({'state_dict': network_obj.state_dict(),'network_config': network_config}, '/data/nnair/idnetwork/results/all/HAR_cnn_imu_mocap_attr.pt')
+        
         del losses_train, accs_train, f1w_train, f1m_train
         del losses_val, accs_val, f1w_val, f1m_val
         del loss_train_val, accs_train_val, f1w_train_val, f1m_train_val

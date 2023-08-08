@@ -19,7 +19,7 @@ import datetime
 from sacred import Experiment
 from sacred.observers import MongoObserver
 
-ex= Experiment('datasetbias lara all')
+ex= Experiment('network_save_mocap_attr lr 10pow-4 batch 200 epoch 10')
 
 ex.observers.append(MongoObserver.create(url='curtiz',
                                          db_name='nnair_sacred',
@@ -77,7 +77,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                       'mocap_quarter': 19, 'mbientlab_50_p': 19, 'mbientlab_10_p': 19, 'mbientlab_50_r': 19,
                       'mbientlab_10_r': 19, 'mbientlab_quarter': 19, 'motionminers_real': 19,
                       'motionminers_flw': 19, 'motionsense': 0}
-    num_tr_inputs = {'mocap': 247702, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 254799,
+    num_tr_inputs = {'mocap': 309210, 'mbientlab': 91399, 'virtual': 239013, 'mocap_half': 254799,
                      'virtual_quarter': 116428, 'mocap_quarter': 168505, 'mbientlab_50_p': 49850,
                      'mbientlab_10_p': 27591, 'mbientlab_50_r': 21791, 'mbientlab_10_r': 8918,
                      'mbientlab_quarter': 91384, 'motionminers_real': 22282, 'motionminers_flw': 93712, 'motionsense':16967}
@@ -211,7 +211,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         'lstm': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                  'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                  'mbientlab_10_r': 100, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100},
-        'cnn_imu': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
+        'cnn_imu': {'mocap': 200, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100, 'virtual_quarter': 100,
                     'mocap_quarter': 100, 'mbientlab_50_p': 100, 'mbientlab_10_p': 100, 'mbientlab_50_r': 100,
                     'mbientlab_10_r': 25, 'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':65}}
 
@@ -223,7 +223,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                                'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                                'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 100,
                                'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':100},
-                      'cnn_imu': {'mocap': 100, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
+                      'cnn_imu': {'mocap': 200, 'mbientlab': 100, 'virtual': 100, 'mocap_half': 100,
                                   'virtual_quarter': 100, 'mocap_quarter': 100, 'mbientlab_50_p': 100,
                                   'mbientlab_10_p': 100, 'mbientlab_50_r': 100, 'mbientlab_10_r': 25,
                                   'mbientlab_quarter': 100, 'motionminers_real': 100, 'motionminers_flw': 100, 'motionsense':50}}
@@ -285,7 +285,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
         folder_base = "/data/nnair/datasetbias/results/all/"
     elif output[output_idx] == 'attribute':
         labeltype = "attributes"
-        folder_base = "/data/nnair/datasetbias/results/exp17/"
+        folder_base = "/data/nnair/idnetwork/results/all/"
 
     #folder_exp = folder_base + "exp1/"
     folder_exp = folder_base
@@ -339,7 +339,7 @@ def configuration(dataset_idx, network_idx, output_idx, usage_modus_idx=0, datas
                     'motionminers_real': "path_to_datasets_folder/" + 'motionminers_real/',
                     'motionminers_flw': "path_to_datasets_folder/" + 'motionminers_flw/'}
     '''
-    dataset_root = {'mocap': "path_to_datasets_folder/" + 'MoCap_dataset/',
+    dataset_root = {'mocap': "/data/nnair/idnetwork/prepros/all/",
                     'mbientlab': "path_to_datasets_folder/" + 'mbientlab/',
                     'virtual': "path_to_datasets_folder/" + 'Virtual_IMUs/',
                     'mocap_half': "/data/nnair/datasetbias/prepros/all/",
@@ -457,14 +457,14 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 @ex.config
 def my_config():
     print("configuration function began")
-    dataset_idx = [3]
+    dataset_idx = [0]
     network_idx = [2]
     reshape_input = [False]
     #dataset_ft_idx = [0,1,2,3]
     counter_exp = 0
     freeze = [0]
     percentages = [12]
-    output_idxs = [0]
+    output_idxs = [1]
     lrs = [0]
     for dts in range(len(dataset_idx)):
         for nt in range(len(network_idx)):
