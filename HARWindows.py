@@ -53,16 +53,17 @@ class HARWindows(Dataset):
 
         X = data['data']
         y = data['act_label']
-        #Y = data['labels']
+        Y = data['act_labels_all']
 
-        window_data = {"data": X, "label": y}
+        #window_data = {"data": X, "label": y}
         '''
         if 'identity' in data.keys():
             i = data['identity']
         
             window_data = {"data": X, "label": y, "labels": Y, "identity": i}
         else:
-            window_data = {"data": X, "label": y, "labels": Y}
-        '''
+            '''
+        window_data = {"data": X, "label": y, "labels": Y}
+        
 
         return window_data
