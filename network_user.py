@@ -734,6 +734,8 @@ class Network_User(object):
                 if self.config['output'] == 'softmax':
                     loss = criterion(predictions, test_batch_l)
                 elif self.config['output'] == 'attribute':
+                    print(predictions.shape)
+                    print(test_batch_l.shape)
                     loss = criterion(predictions, test_batch_l[:, 1:])
                 loss_val = loss_val + loss.item()
 
