@@ -712,7 +712,7 @@ class Network_User(object):
                         test_batch_l = harwindow_batched_val["labels"][:, 0]
                         test_batch_l = test_batch_l.reshape(-1)
                     elif self.config["fully_convolutional"] == "FC":
-                        test_batch_l = harwindow_batched_val["label"][:, 0]
+                        test_batch_l = harwindow_batched_val["label"]
 
                 # Creating torch tensors
                 # test_batch_v = torch.from_numpy(test_batch_v)
