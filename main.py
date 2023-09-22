@@ -458,7 +458,7 @@ def setup_experiment_logger(logging_level=logging.DEBUG, filename=None):
 def my_config():
     print("configuration function began")
     dataset_idx = [0]
-    network_idx = [2]
+    network_idx = [0]
     reshape_input = [False]
     #dataset_ft_idx = [0,1,2,3]
     counter_exp = 0
