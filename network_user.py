@@ -799,6 +799,7 @@ class Network_User(object):
         # Creating a network and loading the weights for testing
         # network is loaded from saved file in the folder of experiment
         logging.info('        Network_User:    Test:    creating network')
+        '''
         if self.config['network'] == 'cnn' or self.config['network'] == 'cnn_imu':
             network_obj = Network(self.config)
 
@@ -808,7 +809,40 @@ class Network_User(object):
 
             logging.info('        Network_User:    Test:    setting device')
             network_obj.to(self.device)
+        '''
+        #modification for LRP
+        network_obj = Network(self.config)
+        print("network weights before initialisation")
+        network_obj.init_weights()
+        print("initalised network with weight")
+        model_dict = network_obj.state_dict()
+        print("model dict with state dict loaded")
+        pretrained_dict= torch.load('/data/nnair/idnetwork/results/all/HAR_cnn_mocap_attr.pt')['state_dict']
+        print("network loaded from cnn_mocap_attr.pt")
+        
+        
+        
+        list_layers = ['conv1_1.weight', 'conv1_1.bias', 'conv1_2.weight', 'conv1_2.bias',
+                           'conv2_1.weight', 'conv2_1.bias', 'conv2_2.weight', 'conv2_2.bias',
+                           'fc3.weight', 'fc3.bias', 'fc4.weight', 'fc4.bias',
+                           'fc5.weight', 'fc5.bias']
+        
+        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in list_layers}
+        print(pretrained_dict)
 
+        logging.info('        Network_User:        Pretrained layers selected')
+        # 2. overwrite entries in the existing state dict
+        model_dict.update(pretrained_dict)
+        logging.info('        Network_User:        Pretrained layers selected')
+        # 3. load the new state dict
+        network_obj.load_state_dict(model_dict)
+        logging.info('        Network_User:        Weights loaded')
+        
+        print(network_obj)
+        network_obj.eval()
+        network_obj.to(self.device)
+        
+        ####################
         # Setting loss, only for being measured. Network wont be trained
         if self.config['output'] == 'softmax':
             logging.info('        Network_User:    Test:    setting criterion optimizer Softmax')
@@ -816,7 +850,8 @@ class Network_User(object):
         elif self.config['output'] == 'attribute':
             logging.info('        Network_User:    Test:    setting criterion optimizer Attribute')
             criterion = nn.BCELoss()
-
+        
+        
         loss_test = 0
 
         # Creating metric object
